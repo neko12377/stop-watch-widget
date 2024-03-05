@@ -26,3 +26,5 @@ UI 規則：
 <img src="public/stop-watch-ui.png" alt="stop-watch-example" width="200"/>
 
 參考影片：
+
+<video src="public/stop-watch-example.mov" width='200'></video>
