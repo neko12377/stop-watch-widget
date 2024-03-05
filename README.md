@@ -27,4 +27,4 @@ UI 規則：
 
 參考影片：
 
-<video src="public/stop-watch-example.mp4" width='200'></video>
+[stop-watch-video](https://github.com/Glossika-PL/stop-watch-widget/assets/109053974/40f170e4-9b2c-49ad-8596-b3040d3e05b0)
