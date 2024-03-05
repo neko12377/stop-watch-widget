@@ -27,4 +27,4 @@ UI 規則：
 
 參考影片：
 
-<video src="public/stop-watch-example.mov" width='200'></video>
+<video src="public/stop-watch-example.mp4" width='200'></video>
