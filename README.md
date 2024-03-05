@@ -24,6 +24,6 @@ UI 規則：
 ## Reference
 
 參考圖片：
-![碼表](public/stop-watch-ui.png)
+<img src="public/stop-watch-ui.png" alt="stop-watch-example" width="200"/>
 
 參考影片：
