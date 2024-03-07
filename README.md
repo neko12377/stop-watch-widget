@@ -2,29 +2,26 @@
 
 ## Introduction
 
-這個專案需要你打造一個碼錶 APP。可以讓使用者計時、紀錄不同區間的時間。
+This project requires you to develop a stopwatch app. It should allow users to time themselves and record lap times.
 
 ## Requirements
 
-使用者可以點擊按紐開始計時、重設碼錶、紀錄分段時間。
+Users should be able to click buttons to start timing, reset the stopwatch, and record lap times.
 
-UI 規則：
+UI Rules:
 
-- 初始畫面下時間歸零，且有兩個按鈕，分別為 **開始** 和 **分段** ，但此時分段按鈕為 _disabled 狀態_
-
-- 按下開始按鈕，開始計時。小於一小時的時間格式為 _mm:ss_ (eg: 16:28.25)，超過一小時的格式為 _hh:mm:ss_ (eg: 03:03:01.66)，秒數需精準到**小數第二位**
-
-- 開始計時後，兩顆按鈕將變成 **分段** 和 **停止**。當正在計時中，可點擊分段按鈕，將此分段的時間記錄在下方列表中
-
-- 點擊停止按鈕會將時間暫停，且停止按鈕變回開始，若點擊開始，碼表時間將繼續進行。碼表停止狀態下，分段按鈕將變為 **重設按鈕** ，按下後重設馬錶以及分段記錄列表
-- 分段列表是從 **新到舊（上到下）** 排序，按下分段按鈕後，新分段時間將從 0 開始繼續計時，且不影響主碼表時間，而上一分段的時間紀錄將被推入到列表中顯示
+- Upon initial display, the timer is set to zero, and there are two buttons: **Start** and **Lap**. The Lap button is initially disabled.
+- Pressing the Start button initiates the timing. Time less than an hour should be displayed as _mm:ss_ (eg: 16:28.25), while time exceeding an hour should be displayed as _hh:mm:ss_ (eg: 03:03:01.66). Seconds should be precise to the **second decimal place**.
+- After starting the timer, the two buttons change to **Lap** and **Stop**. When the Lap button is pressed, a new lap timer starts from 0, independent of the main stopwatch time. Both the main stopwatch and the new lap timer continue running uninterrupted. The time record of the previous lap is then pushed into the list for display.
+- Clicking the Stop button pauses the timer. The Stop button reverts to Start, and if clicked, the stopwatch continues. In the stopped state, the Lap button becomes a **Reset button**. Clicking it resets the stopwatch and the lap record list.
+- The lap list is ordered from **newest to oldest (top to bottom)**.
 
 ## Reference
 
-參考圖片：
+Reference Image:
 
-<img src="public/stop-watch-ui.png" alt="stop-watch-example" width="200"/>
+![stop-watch-example](public/stop-watch-ui.png)
 
-參考影片：
+Reference Video:
 
 [stop-watch-video](https://github.com/Glossika-PL/stop-watch-widget/assets/109053974/40f170e4-9b2c-49ad-8596-b3040d3e05b0)
