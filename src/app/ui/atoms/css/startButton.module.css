@@ -1,0 +1,9 @@
+.layout {
+  background-color: #0d4d0e;
+  color:#8BDA69;
+}
+
+.layout:active {
+  background-color: #022303;
+  color:#8BDA69;
+}

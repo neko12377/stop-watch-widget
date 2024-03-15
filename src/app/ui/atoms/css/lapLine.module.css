@@ -1,0 +1,21 @@
+.layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.5rem;
+  height: 24%;
+  width: 100%;
+  color: #969595;
+}
+
+.bestLap {
+  color: #1eed25a4;
+}
+
+.worstLap {
+  color: #e84c4c9e;
+}
+
+.smallerText {
+  font-size: 1.2rem;
+}
