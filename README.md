@@ -1,3 +1,11 @@
+
+# Use pnpm to install and start this project
+
+Demo Video:
+
+https://github.com/neko12377/stop-watch-widget/assets/22142416/a761a663-8f80-419b-bc8f-6c3e0e6f8c27
+
+
 # stop-watch-widget
 
 ## Introduction
