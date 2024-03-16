@@ -1,4 +1,4 @@
-import type { ILapLine } from '../../interfaces';
+import type { ILapLine } from '@/app/interfaces';
 import styles from './css/lapLine.module.css';
 
 const LapLine = (props: ILapLine) => {

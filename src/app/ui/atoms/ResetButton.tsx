@@ -1,10 +1,10 @@
-import type { IResetButton } from '../../interfaces';
-import styles from './css/shared.module.css';
-import resetButtonStyles from './css/ResetButton.module.css';
+import type { IResetButton } from '@/app/interfaces';
+import sharedStyles from './css/shared.module.css';
+import styles from './css/ResetButton.module.css';
 
 const ResetButton = (props: IResetButton) => {
   return (
-    <button className={`${styles.roundedButton} ${resetButtonStyles.layout}`} onClick={props.handleReset}>Reset</button>
+    <button className={`${sharedStyles.roundedButton} ${styles.layout}`} onClick={props.handleReset}>Reset</button>
   )
 }
 

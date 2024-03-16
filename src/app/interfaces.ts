@@ -16,11 +16,19 @@ interface ILapButton {
 }
 
 interface ILapLine {
- lapCount: number;
- time: string;
- isBestLap?: boolean;
+  lapCount: number;
+  time: string;
+  isBestLap?: boolean;
   isWorstLap?: boolean;
 }
 
-export type { IStartButton, IStopButton, IResetButton, ILapButton, ILapLine }
+interface IIconLabel {
+  className?: string;
+  iconStyle?: string;
+  labelStyle?: string;
+  isActive?: boolean;
+  isDisabled?: boolean;
+}
+
+export type { IStartButton, IStopButton, IResetButton, ILapButton, ILapLine, IIconLabel }
 

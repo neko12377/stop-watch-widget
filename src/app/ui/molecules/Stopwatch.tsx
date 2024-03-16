@@ -1,12 +1,12 @@
 'use client'
 
 import { useState, useEffect } from 'react';
-import { timeFormatter } from '../../utilities/timeFormatter';
+import { timeFormatter } from '@/app/utilities/timeFormatter';
 import { StartButton, StopButton, LapButton, ResetButton, LapLine } from '../atoms';
-import styles from './css/stopWatch.module.css';
-import type { ILapLine } from '../../interfaces';
+import type { ILapLine } from '@/app/interfaces';
+import styles from './css/stopwatch.module.css';
 
-function StopWatch() {
+function Stopwatch() {
   const [laps, setLaps] = useState<{ [K in keyof ILapLine]: number
   }[]>([]);
   const [time, setTime] = useState<number>(0);
@@ -71,21 +71,21 @@ function StopWatch() {
     setWorstLap(0);
   };
 
-  const showLapButton = (): boolean => {
+  const isShowLapButton: boolean = ((): boolean => {
     return !isActive && !isPaused || isActive && !isPaused;
-  }
+  })()
 
   return (
     <main className={styles.layout}>
       <div className={styles.timeNumber}>
         {`${minutes}:${seconds}:`}
-        <div className={styles.centiSeconds}>{centiseconds}</div>
+        <div className={styles.centiseconds}>{centiseconds}</div>
       </div>
       <div className={styles.buttonGroup}>
         {/* Alternative design handle start and lap at the same side*/}
         {/* {isActive ? <StopButton handleStopResume={handleStopResume} /> : <ResetButton handleReset={handleReset} />}
         {isActive ? <LapButton handleLap={handleLap} /> : <StartButton handleStart={handleStart} />} */}
-        {showLapButton() ? <LapButton disabled={!isActive} handleLap={handleLap} /> : <ResetButton handleReset={handleReset} />}
+        {isShowLapButton ? <LapButton disabled={!isActive} handleLap={handleLap} /> : <ResetButton handleReset={handleReset} />}
         {isActive ? <StopButton handleStopResume={handleStopResume} /> : <StartButton handleStart={handleStart} />}
       </div>
       <div className={styles.lapGroup}>
@@ -98,8 +98,8 @@ function StopWatch() {
         )}
         {laps.length > 0 &&
           laps.map((lap) => {
-            const { minutes: lapMinutes, seconds: lapSeconds, centiseconds: lapCentiSeconds } = timeFormatter(lap.time);
-            const lapTime = `${lapMinutes}:${lapSeconds}:${lapCentiSeconds}`;
+            const { minutes: lapMinutes, seconds: lapSeconds, centiseconds: lapCentiseconds } = timeFormatter(lap.time);
+            const lapTime = `${lapMinutes}:${lapSeconds}:${lapCentiseconds}`;
             return (
               <>
                 <LapLine key={lap.lapCount} lapCount={lap.lapCount} time={lapTime} isBestLap={(lap.time <= bestLap)} isWorstLap={(lap.time >= worstLap)} />
@@ -112,4 +112,4 @@ function StopWatch() {
     </main>
   );
 }
-export { StopWatch }
+export { Stopwatch }

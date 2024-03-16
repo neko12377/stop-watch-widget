@@ -1,9 +1,10 @@
-import { StopWatch } from './ui/molecules/StopWatch';
+import { Clock } from '@/app/ui/organisms';
 
-export default function StopWatchApp() {
+
+export default function StopwatchApp() {
   return (
     <div>
-      <StopWatch />
+      <Clock />
     </div>
   );
 }
