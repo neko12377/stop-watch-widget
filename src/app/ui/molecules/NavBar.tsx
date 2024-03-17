@@ -14,9 +14,6 @@ const NavBar = (props: INavBar) => {
     setSelected(option);
   }
 
-  // temporary feature
-  const unImplementedFeature: string[] = [clockNavOptions.worldClock, clockNavOptions.alarm, clockNavOptions.timer];
-
   return (
     <nav className={styles.layout}>
       {
@@ -25,11 +22,11 @@ const NavBar = (props: INavBar) => {
           if (option.id === selected) {
             className += ` ${styles.iconLabelActive}`;
           }
-          if (unImplementedFeature.includes(option.id)) {
-            className += ` ${styles.iconLabelDisabled}`;
-          }
+      
           return (
-            <Link onClick={() => handleNavigation} href={option.path} key={option.id}>
+            <Link onClick={() => {
+              handleNavigation(option.id);
+            }} href={option.path} key={option.id}>
               <option.component className={className} iconStyle={styles.icon} labelStyle={styles.label} />
             </Link>
           )
