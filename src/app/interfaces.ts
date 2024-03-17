@@ -1,3 +1,5 @@
+import { clockNavOptions } from "./enums";
+
 interface IStartButton {
   handleStart: () => void
 }
@@ -30,5 +32,10 @@ interface IIconLabel {
   isDisabled?: boolean;
 }
 
-export type { IStartButton, IStopButton, IResetButton, ILapButton, ILapLine, IIconLabel }
+interface INavBar {
+  defaultValue?: string;
+  options: {id: string, component: React.FC<IIconLabel>, path: string}[]
+}
+
+export type { IStartButton, IStopButton, IResetButton, ILapButton, ILapLine, IIconLabel, INavBar }
 

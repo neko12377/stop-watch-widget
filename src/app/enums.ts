@@ -2,7 +2,7 @@ enum clockNavOptions {
   worldClock = 'worldClock',
   alarm = 'alarm',
   stopwatch = 'stopwatch',
-  time = 'time',
+  timer = 'timer',
 }
 
 export { clockNavOptions };

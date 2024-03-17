@@ -1,27 +1,26 @@
 'use client'
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { clockNavOptions } from '@/app/enums';
-import type { IIconLabel } from '@/app/interfaces';
+import type { INavBar } from '@/app/interfaces';
 import styles from './css/NavBar.module.css';
-import { StopwatchIconLabel, WorldClockIconLabel, AlarmIconLabel, TimerIconLabel } from '@/app/ui/atoms';
 
-const NavBar = () => {
-  const [selected, setSelected] = useState<clockNavOptions>(clockNavOptions.stopwatch);
-  const navOptions: { id: clockNavOptions, component: React.FC<IIconLabel> }[] = [
-    { id: clockNavOptions.worldClock, component: WorldClockIconLabel },
-    { id: clockNavOptions.alarm, component: AlarmIconLabel },
-    { id: clockNavOptions.stopwatch, component: StopwatchIconLabel },
-    { id: clockNavOptions.time, component: TimerIconLabel },
-  ];
+
+const NavBar = (props: INavBar) => {
+  const [selected, setSelected] = useState<string>(props.defaultValue || '');
+
+  const handleNavigation = (option: string) => {
+    setSelected(option);
+  }
 
   // temporary feature
-  const unImplementedFeature: clockNavOptions[] = [clockNavOptions.worldClock, clockNavOptions.alarm, clockNavOptions.time];
+  const unImplementedFeature: string[] = [clockNavOptions.worldClock, clockNavOptions.alarm, clockNavOptions.timer];
 
   return (
     <nav className={styles.layout}>
       {
-        navOptions.map((option) => {
+        props.options.map((option) => {
           let className = styles.iconLabel;
           if (option.id === selected) {
             className += ` ${styles.iconLabelActive}`;
@@ -29,7 +28,11 @@ const NavBar = () => {
           if (unImplementedFeature.includes(option.id)) {
             className += ` ${styles.iconLabelDisabled}`;
           }
-          return (<option.component key={option.id} className={className} iconStyle={styles.icon} labelStyle={styles.label} />)
+          return (
+            <Link onClick={() => handleNavigation} href={option.path} key={option.id}>
+              <option.component className={className} iconStyle={styles.icon} labelStyle={styles.label} />
+            </Link>
+          )
         })
       }
     </nav>
