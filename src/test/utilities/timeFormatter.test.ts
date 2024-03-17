@@ -1,4 +1,4 @@
-import { timeFormatter } from "../../app/utilities/timeFormatter";
+import { timeFormatter } from "@/app/utilities/timeFormatter";
 
 describe('timeFormatter', () => {
   it('should format 0 centiseconds correctly', () => {
