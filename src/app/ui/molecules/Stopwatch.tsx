@@ -2,10 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { timeFormatter } from '@/app/utilities/timeFormatter';
-import { StartButton, StopButton, LapButton, ResetButton, LapLine } from '../atoms';
+import { Button, LapLine } from '../atoms';
 import type { ILapLine } from '@/app/interfaces';
 import styles from './css/stopwatch.module.css';
-import { parse } from 'path';
 
 function Stopwatch() {
   const [laps, setLaps] = useState<{ [K in keyof ILapLine]: number
@@ -22,8 +21,6 @@ function Stopwatch() {
 
   const { minutes, seconds, centiseconds } = timeFormatter(time);
   const { minutes: firstLapMinutes, seconds: firstLapSeconds, centiseconds: firstLapCentiseconds } = timeFormatter(lapTime);
-
-
 
   useEffect(() => {
     let interval: NodeJS.Timeout | number;
@@ -97,6 +94,13 @@ function Stopwatch() {
     return !isActive && !isPaused || isActive && !isPaused;
   })()
 
+  const buttons = {
+    startButton: <Button className={`${styles.roundedButton} ${styles.startButton}`} label='Start' handleAction={handleStart} />,
+    stopButton: <Button className={`${styles.roundedButton} ${styles.stopButton}`} label='Stop' handleAction={handleStop} />,
+    LapButton: <Button className={`${styles.roundedButton} ${styles.lapButton}`} label='Lap' handleAction={handleLap} />,
+    ResetButton: <Button className={`${styles.roundedButton} ${styles.resetButton}`} label='Reset' handleAction={handleReset} />
+  }
+
   return (
     <main className={styles.layout}>
       <div className={styles.timeNumber}>
@@ -107,8 +111,8 @@ function Stopwatch() {
         {/* Alternative design handle start and lap at the same side*/}
         {/* {isActive ? <StopButton handleStopResume={handleStopResume} /> : <ResetButton handleReset={handleReset} />}
         {isActive ? <LapButton handleLap={handleLap} /> : <StartButton handleStart={handleStart} />} */}
-        {isShowLapButton ? <LapButton disabled={!isActive} handleLap={handleLap} /> : <ResetButton handleReset={handleReset} />}
-        {isActive ? <StopButton handleStopResume={handleStop} /> : <StartButton handleStart={handleStart} />}
+        {isShowLapButton ? buttons.LapButton : buttons.ResetButton}
+        {isActive ? buttons.stopButton : buttons.startButton }
       </div>
       <div className={styles.lapGroup}>
         {showFirstLap && (

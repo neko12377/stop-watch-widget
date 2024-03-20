@@ -1,9 +1,11 @@
 'use client'
 import { NavBar } from "@/app/ui/molecules"
 import styles from './css/clock.module.css'
-import type { IIconLabel, INavBar } from '@/app/interfaces';
+import type { INavOption } from '@/app/interfaces';
 import { clockNavOptions } from "@/app/enums";
-import { StopwatchIconLabel, WorldClockIconLabel, AlarmIconLabel, TimerIconLabel } from '@/app/ui/atoms';
+import { Label } from '@/app/ui/atoms';
+import { TimerIcon, AlarmIcon, StopwatchIcon, WorldIcon } from "@/app/icon";
+
 
 export default function ClockLayout({
   children,
@@ -11,11 +13,11 @@ export default function ClockLayout({
   children: React.ReactNode
 }) {
 
-  const navOptions: { id: clockNavOptions, component: React.FC<IIconLabel>, path: string }[] = [
-    { id: clockNavOptions.worldClock, component: WorldClockIconLabel, path: '/clock/world-clock' },
-    { id: clockNavOptions.alarm, component: AlarmIconLabel, path: '/clock/alarm' },
-    { id: clockNavOptions.stopwatch, component: StopwatchIconLabel, path: '/clock/stopwatch' },
-    { id: clockNavOptions.timer, component: TimerIconLabel, path: '/clock/timer' },
+  const navOptions: INavOption[] = [
+    { id: clockNavOptions.worldClock, component: Label, path: '/clock/world-clock', icon: WorldIcon},
+    { id: clockNavOptions.alarm, component: Label, path: '/clock/alarm', icon: AlarmIcon},
+    { id: clockNavOptions.stopwatch, component: Label, path: '/clock/stopwatch', icon: StopwatchIcon},
+    { id: clockNavOptions.timer, component: Label, path: '/clock/timer', icon: TimerIcon },
   ];
 
 

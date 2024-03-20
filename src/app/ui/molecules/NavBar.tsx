@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { clockNavOptions } from '@/app/enums';
 import type { INavBar } from '@/app/interfaces';
 import styles from './css/NavBar.module.css';
 
@@ -27,7 +26,7 @@ const NavBar = (props: INavBar) => {
             <Link onClick={() => {
               handleNavigation(option.id);
             }} href={option.path} key={option.id}>
-              <option.component className={className} iconStyle={styles.icon} labelStyle={styles.label} />
+              <option.component label={option.id} className={className} icon={option.icon}iconStyle={styles.icon} labelStyle={styles.label} />
             </Link>
           )
         })

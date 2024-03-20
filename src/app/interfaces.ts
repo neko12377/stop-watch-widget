@@ -1,20 +1,7 @@
-import { clockNavOptions } from "./enums";
-
-interface IStartButton {
-  handleStart: () => void
-}
-
-interface IStopButton {
-  handleStopResume: () => void
-}
-
-interface IResetButton {
-  handleReset: () => void
-}
-
-interface ILapButton {
-  disabled: boolean;
-  handleLap: () => void
+interface IButton {
+  label?: string;
+  className?: string;
+  handleAction?: () => void;
 }
 
 interface ILapLine {
@@ -24,18 +11,32 @@ interface ILapLine {
   isWorstLap?: boolean;
 }
 
+interface ReactIconProps {
+  className?: string;
+}
+
 interface IIconLabel {
+  label: string;
   className?: string;
   iconStyle?: string;
   labelStyle?: string;
   isActive?: boolean;
   isDisabled?: boolean;
+  icon?: React.FC<ReactIconProps>;
+}
+
+
+interface INavOption {
+  id: string;
+  component: React.FC<IIconLabel>;
+  path: string;
+  icon?: React.FC<ReactIconProps>;
 }
 
 interface INavBar {
   defaultValue?: string;
-  options: {id: string, component: React.FC<IIconLabel>, path: string}[]
+  options: INavOption[]
 }
 
-export type { IStartButton, IStopButton, IResetButton, ILapButton, ILapLine, IIconLabel, INavBar }
+export type { ILapLine, IIconLabel, INavBar, IButton, INavOption }
 
