@@ -5,6 +5,7 @@ import { timeFormatter } from '@/app/utilities/timeFormatter';
 import { StartButton, StopButton, LapButton, ResetButton, LapLine } from '../atoms';
 import type { ILapLine } from '@/app/interfaces';
 import styles from './css/stopwatch.module.css';
+import { parse } from 'path';
 
 function Stopwatch() {
   const [laps, setLaps] = useState<{ [K in keyof ILapLine]: number
@@ -13,6 +14,8 @@ function Stopwatch() {
   const [lapTime, setLapTime] = useState<number>(0);
   const [isActive, setIsActive] = useState<boolean>(false);
   const [isPaused, setIsPaused] = useState<boolean>(false);
+  const [lapseTimeWhenPaused, setLapseTimeWhenPaused] = useState<number>(0);
+  const [lapLapseTimeWhenPaused, setLapLapseTimeWhenPaused] = useState<number>(0);
   const [showFirstLap, setShowFirstLap] = useState<boolean>(false);
   const [bestLap, setBestLap] = useState<number>(Number.MAX_SAFE_INTEGER);
   const [worstLap, setWorstLap] = useState<number>(0);
@@ -20,13 +23,22 @@ function Stopwatch() {
   const { minutes, seconds, centiseconds } = timeFormatter(time);
   const { minutes: firstLapMinutes, seconds: firstLapSeconds, centiseconds: firstLapCentiseconds } = timeFormatter(lapTime);
 
+
+
   useEffect(() => {
     let interval: NodeJS.Timeout | number;
-
     if (isActive) {
       interval = setInterval(() => {
-        setTime((time) => time + 10);
-        setLapTime((time) => time + 10);
+        setTime(() => {
+          const timeLapsed = sessionStorage.getItem('startTime') ? Date.now() - parseInt(sessionStorage.getItem('startTime') || '0') : 0;
+          const newTime = lapseTimeWhenPaused + timeLapsed;
+          return newTime;
+        });
+        setLapTime(() => {
+          const lapTimeLapsed = sessionStorage.getItem('lapStartTime') ? Date.now() - parseInt(sessionStorage.getItem('lapStartTime') || '0') : 0;
+          const newLapTime = lapLapseTimeWhenPaused + lapTimeLapsed;
+          return newLapTime;
+        });
       }, 10);
     }
     return () => {
@@ -34,33 +46,41 @@ function Stopwatch() {
         clearInterval(interval);
       }
     };
-  }, [isActive]);
+  }, [isActive, lapseTimeWhenPaused, lapLapseTimeWhenPaused]);
 
   const handleStart = () => {
+    sessionStorage.setItem('lapStartTime', Date.now().toString());
+    sessionStorage.setItem('startTime', Date.now().toString());
     setIsActive(true);
     setIsPaused(false);
     setShowFirstLap(true);
   };
 
-  const handleStopResume = () => {
+  const handleStop = () => {
+    setLapseTimeWhenPaused(time);
+    setLapLapseTimeWhenPaused(lapTime);
     setIsActive(false);
     setIsPaused(true);
   };
 
   const handleLap = () => {
+    setLapLapseTimeWhenPaused(0);
+    setLapTime(0);
+    sessionStorage.setItem('lapStartTime', Date.now().toString());
     setBestLap((preBestLap) => {
       return lapTime < preBestLap ? lapTime : preBestLap;
     });
     setWorstLap((preWorstLap) => {
       return lapTime > preWorstLap ? lapTime : preWorstLap;
     });
-    setLapTime(0);
     setLaps((preLaps) => {
       return [{ lapCount: preLaps.length + 1, time: lapTime }, ...preLaps];
     });
   };
 
   const handleReset = () => {
+    sessionStorage.removeItem('startTime');
+    sessionStorage.removeItem('lapStartTime');
     setIsActive(false);
     setTime(0);
     setLapTime(0);
@@ -69,6 +89,8 @@ function Stopwatch() {
     setShowFirstLap(false);
     setBestLap(Number.MAX_SAFE_INTEGER);
     setWorstLap(0);
+    setLapseTimeWhenPaused(0);
+    setLapLapseTimeWhenPaused(0);
   };
 
   const isShowLapButton: boolean = ((): boolean => {
@@ -86,7 +108,7 @@ function Stopwatch() {
         {/* {isActive ? <StopButton handleStopResume={handleStopResume} /> : <ResetButton handleReset={handleReset} />}
         {isActive ? <LapButton handleLap={handleLap} /> : <StartButton handleStart={handleStart} />} */}
         {isShowLapButton ? <LapButton disabled={!isActive} handleLap={handleLap} /> : <ResetButton handleReset={handleReset} />}
-        {isActive ? <StopButton handleStopResume={handleStopResume} /> : <StartButton handleStart={handleStart} />}
+        {isActive ? <StopButton handleStopResume={handleStop} /> : <StartButton handleStart={handleStart} />}
       </div>
       <div className={styles.lapGroup}>
         {showFirstLap && (
